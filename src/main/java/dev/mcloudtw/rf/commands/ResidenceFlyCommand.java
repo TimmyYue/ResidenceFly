@@ -51,19 +51,22 @@ public class ResidenceFlyCommand {
         return new CommandAPICommand("info")
                 .executesPlayer((player, args) -> {
                     PlayerFlightManager pfm = PlayerFlightManager.loadPlayerFlightData(player);
-                    int leftTime = pfm.defaultSecondsLeft + pfm.additionalSecondsLeft;
-                    int maxTime = Main.plugin.defaultPlayerFlightSeconds + pfm.additionalSecondsLeft;
                     player.sendMessage(MiniMessage.miniMessage().deserialize(
                             "<gray>[</gray><gold>領地飛行</gold><gray>]</gray> " +
-                                    "<white>飛行狀態: " + (pfm.enabled ? "<green>開啟</green>" : "<red>關閉</red>") +"</white>"
+                                    "<white>飛行狀態: " + (pfm.enabled ? "<green>開啟</green>" : "<red>關閉</red>") + "  " +
+                                    "飛行快捷鍵: " + (Events.disableFlyShortcut.contains(player) ? "<green>開啟</green>" : "<red>關閉</red>") +"</white>"
                     ));
                     player.sendMessage(MiniMessage.miniMessage().deserialize(
                             "<gray>[</gray><gold>領地飛行</gold><gray>]</gray> " +
-                                    "<white>飛行快捷鍵: " + (Events.disableFlyShortcut.contains(player) ? "<green>開啟</green>" : "<red>關閉</red>") +"</white>"
+                                    "<white>你的基本時間還有 <yellow>" + pfm.defaultSecondsLeft + "</yellow> (秒) 的剩餘，最大 <yellow>" + Main.plugin.defaultPlayerFlightSeconds + "</yellow> (秒)</white>"
                     ));
                     player.sendMessage(MiniMessage.miniMessage().deserialize(
                             "<gray>[</gray><gold>領地飛行</gold><gray>]</gray> " +
-                                    "<white>你還有 <yellow>" + leftTime + "</yellow> (秒)，最大 <yellow>" + maxTime + "</yellow> (秒)的飛行時間</white>"
+                                    "<white>你的額外時間還有 <yellow>" + pfm.additionalSecondsLeft + "</yellow> (秒) 的剩餘"
+                    ));
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(
+                            "<gray>[</gray><gold>領地飛行</gold><gray>]</gray> " +
+                                    "<white>你的總時間還有 <yellow>" + (pfm.additionalSecondsLeft + pfm.defaultSecondsLeft) + "</yellow> (秒) 的剩餘"
                     ));
                     player.sendMessage(MiniMessage.miniMessage().deserialize(
                             "<gray>[</gray><gold>領地飛行</gold><gray>]</gray> " +

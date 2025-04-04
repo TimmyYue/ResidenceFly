@@ -60,7 +60,7 @@ public class Events implements Listener {
         }
 
         Instant lastSneak = playerLastSneak.get(player);
-        if (now.toEpochMilli() - lastSneak.toEpochMilli() > 200) {
+        if (now.toEpochMilli() - lastSneak.toEpochMilli() > 500) {
             playerLastSneak.put(player, now);
             return;
         }
