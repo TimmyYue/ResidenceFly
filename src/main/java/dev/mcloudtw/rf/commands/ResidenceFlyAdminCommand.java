@@ -131,7 +131,7 @@ public class ResidenceFlyAdminCommand {
                 .executes((sender, args) -> {
                     String playerName = (String) args.get("player");
                     assert playerName != null;
-                    Player playerToOperate = Bukkit.getPlayer(playerName);
+                    OfflinePlayer playerToOperate = Bukkit.getOfflinePlayer(playerName);
                     PlayerFlightManager pfm = PlayerFlightManager.loadPlayerFlightData(playerToOperate);
                     pfm.additionalSecondsLeft += (int) args.get("time");
                     pfm.saveToFile();
